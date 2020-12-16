@@ -75,12 +75,13 @@ button:focus {
     color: #728188;
 }
 
-.local-weather-header {
+.local-weather-info {
     min-width: 300px;
     width: 50%;
 }
 
-.local-weather-header h1 {
+.local-weather-info h2 {
+    font-size: 2em;
     margin: 0;
 }
 
