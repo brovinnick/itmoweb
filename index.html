@@ -9,46 +9,44 @@
 <body>
 <header>
     <h1>Погода здесь</h1>
-    <button id="update-geo" class="button-update-geo">Обновить геолокацию</button>
+    <button class="button-geo-update">Обновить геолокацию</button>
 </header>
 <main>
-    <div>
-        <header>
+    <div class="local-weather">
+        <div class="local-weather-header">
             <h1>Saint Petersburg</h1>
-            <div>Иконка погоды</div>
-            <div>8&#176;C</div>
-        </header>
-        <div>
-            <ul>
-                <li>
-                    <span>Ветер</span>
-                    <span>Moderate breeze, 6.0 m/s, North-northwest</span>
-                </li>
-                <li>
-                    <span>Облачность</span>
-                    <span>Broken clouds</span>
-                </li>
-                <li>
-                    <span>Давление</span>
-                    <span>1013 hpa</span>
-                </li>
-                <li>
-                    <span>Влажность</span>
-                    <span>52 %</span>
-                </li>
-                <li>
-                    <span>Координаты</span>
-                    <span>[59.88, 30.42]</span>
-                </li>
-            </ul>
+            <div class="weather-icon">Иконка погоды</div>
+            <div class="temperature">8&#176;C</div>
         </div>
+        <ul>
+            <li>
+                <span class="title">Ветер</span>
+                <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
+            </li>
+            <li>
+                <span class="title">Облачность</span>
+                <span class="value">Broken clouds</span>
+            </li>
+            <li>
+                <span class="title">Давление</span>
+                <span class="value">1013 hpa</span>
+            </li>
+            <li>
+                <span class="title">Влажность</span>
+                <span class="value">52 %</span>
+            </li>
+            <li>
+                <span class="title">Координаты</span>
+                <span class="value">[59.88, 30.42]</span>
+            </li>
+        </ul>
     </div>
-    <div>
-        <header>
+    <div class="favorites-weather">
+        <div>
             <h1>Избранное</h1>
             <input type="text" placeholder="Добавить новый город">
             <button>+</button>
-        </header>
+        </div>
         <section>
             <div>
                 <h2>Moscow</h2>

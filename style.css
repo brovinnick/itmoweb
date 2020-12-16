@@ -1,0 +1,89 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #728188;
+}
+
+body {
+    min-width: 800px;
+    width: 50%;
+    margin: auto;
+}
+
+header {
+    width: 90%;
+    margin: auto;
+    display: flex;
+}
+
+header h1 {
+    width: 33%;
+}
+
+main {
+    width: 90%;
+    margin: auto;
+}
+
+button,
+button:active,
+button:focus {
+    outline: none;
+    cursor: pointer;
+}
+
+.local-weather {
+    display: flex;
+}
+
+.title {
+    color: white;
+    font-weight: bold;
+}
+
+.value {
+    color: white;
+    float: right;
+}
+
+.temperature {
+    font-size: 4em;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.button-geo-update {
+    background-color: #c9d2d7;
+    border: none;
+    border-radius: 2px;
+    width: 200px;
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #728188;
+}
+
+.local-weather-header {
+    min-width: 300px;
+    width: 50%;
+}
+
+.weather-icon {
+    display: inline-block;
+}
+
+ul {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 50%;
+    justify-content: space-between;
+}
+
+li {
+    font-size: 0.85em;
+    background-color: #a7afb1;
+    padding: 5px;
+    margin-bottom: 5px;
+}
