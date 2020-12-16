@@ -46,7 +46,7 @@ document.body.onload = function () {
 }
 
 function geoUpdate() {
-    // Default city: Saint-Petersburg 59°57′ с. ш. 30°19′
+    // Default city: Saint-Petersburg
     let lat = 30.316667;
     let lon = 59.95;
     let geolocation = navigator.geolocation;
@@ -94,14 +94,13 @@ function isDaytime(timeZoneShift) {
     return hours > 6 && hours < 20;
 }
 
-let names = [
-    "Штиль", "Тихий", "Лёгкий", "Слабый", "Умеренный", "Свежий",
-    "Сильный", "Крепкий", "Очень крепкий", "Шторм", "Сильный шторм", "Жестокий шторм", "Ураган"
-];
-
-let speeds = [0, 0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 33];
-
 function getWindName(speed) {
+    let names = [
+        "Штиль", "Тихий", "Лёгкий", "Слабый", "Умеренный", "Свежий",
+        "Сильный", "Крепкий", "Очень крепкий", "Шторм", "Сильный шторм", "Жестокий шторм", "Ураган"
+    ];
+
+    let speeds = [0, 0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 33];
     let index = 0;
     speeds.forEach(function(el, idx) {
         if (el < speed) {
@@ -110,17 +109,6 @@ function getWindName(speed) {
     });
 
     return names[index];
-}
-
-function getWindId(speed) {
-    let index = 0;
-    speeds.forEach(function(el, idx) {
-        if (el < speed) {
-            index = idx;
-        }
-    });
-
-    return index;
 }
 
 function getWindDirection(direction) {
