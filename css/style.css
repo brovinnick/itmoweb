@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    min-width: 800px;
+    min-width: 750px;
     width: 50%;
     margin: auto;
 }
@@ -217,5 +217,101 @@ button:focus {
     font-size: 2em;
     font-weight: bold;
     display: inline-block;
+}
+
+.button-geo-update-small {
+    display: none;
+}
+
+@media(max-width: 749px) {
+    html {
+        font-size: 10px;
+    }
+
+    body {
+        min-width: 300px;
+    }
+
+    .local-weather {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .local-weather-info {
+        width: 100%;
+    }
+
+    .local-weather-details {
+        width: 100%;
+    }
+
+    .favorites-weather {
+        display: block;
+    }
+
+    .favorites-weather-header {
+        display: block;
+    }
+
+    .favorites-weather-content {
+        display: block;
+    }
+
+    .city {
+        width: 100%;
+    }
+
+    .add-city {
+        width: 100%;
+        display: inline-block;
+        height: 50%;
+    }
+
+    .favorites-weather-header {
+        display: block;
+        height: 80px;
+    }
+
+    .favorites-weather-header h2 {
+        width: 100%;
+        height: 50%;
+    }
+
+    .favorites-weather-content {
+        display: block;
+    }
+
+    .favorites-weather-header {
+    }
+
+    .button-geo-update-full {
+        display: none;
+    }
+
+    .button-geo-update-small {
+        display: block;
+    }
+
+    header {
+        display: inline-block;
+        padding-top: 20px;
+    }
+
+    header h1 {
+        width: auto;
+        float: left;
+        margin: 0;
+    }
+
+    .button-geo-update {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        margin: auto 0 auto 25px;
+        font-weight: bold;
+        font-size: 2em;
+    }
 }
 
