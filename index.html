@@ -28,23 +28,23 @@
             <ul class="weather-details">
                 <li>
                     <span class="title">Ветер</span>
-                    <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                    <span class="value">Загрузка...</span>
                 </li>
                 <li>
                     <span class="title">Облачность</span>
-                    <span class="value">Broken clouds</span>
+                    <span class="value">Загрузка...</span>
                 </li>
                 <li>
                     <span class="title">Давление</span>
-                    <span class="value">1013 hpa</span>
+                    <span class="value">Загрузка...</span>
                 </li>
                 <li>
                     <span class="title">Влажность</span>
-                    <span class="value">52 %</span>
+                    <span class="value">Загрузка...</span>
                 </li>
                 <li>
                     <span class="title">Координаты</span>
-                    <span class="value">[59.88, 30.42]</span>
+                    <span class="value">Загрузка...</span>
                 </li>
             </ul>
         </div>
@@ -58,136 +58,46 @@
             </div>
         </div>
         <div class="favorites-weather-content">
-            <section class="city">
-                <div class="city-weather-header">
-                    <h3>Moscow</h3>
-                    <div class="city-temperature">5&#176;C</div>
-                    <div class="city-weather-icon">
-                        <i class="wi wi-day-sunny"></i>
-                    </div>
-                    <button class="button-remove-favorite">&#215;</button>
-                </div>
-                <ul class="weather-details">
-                    <li>
-                        <span class="title">Ветер</span>
-                        <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
-                    </li>
-                    <li>
-                        <span class="title">Облачность</span>
-                        <span class="value">Broken clouds</span>
-                    </li>
-                    <li>
-                        <span class="title">Давление</span>
-                        <span class="value">1013 hpa</span>
-                    </li>
-                    <li>
-                        <span class="title">Влажность</span>
-                        <span class="value">52 %</span>
-                    </li>
-                    <li>
-                        <span class="title">Координаты</span>
-                        <span class="value">[59.88, 30.42]</span>
-                    </li>
-                </ul>
-            </section>
-            <section class="city">
-                <div class="city-weather-header">
-                    <h3>Moscow</h3>
-                    <div class="city-temperature">5&#176;C</div>
-                    <div class="city-weather-icon">
-                        <i class="wi wi-day-sunny"></i>
-                    </div>
-                    <button class="button-remove-favorite">&#215;</button>
-                </div>
-                <ul class="weather-details">
-                    <li>
-                        <span class="title">Ветер</span>
-                        <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
-                    </li>
-                    <li>
-                        <span class="title">Облачность</span>
-                        <span class="value">Broken clouds</span>
-                    </li>
-                    <li>
-                        <span class="title">Давление</span>
-                        <span class="value">1013 hpa</span>
-                    </li>
-                    <li>
-                        <span class="title">Влажность</span>
-                        <span class="value">52 %</span>
-                    </li>
-                    <li>
-                        <span class="title">Координаты</span>
-                        <span class="value">[59.88, 30.42]</span>
-                    </li>
-                </ul>
-            </section>
-            <section class="city">
-                <div class="city-weather-header">
-                    <h3>Moscow</h3>
-                    <div class="city-temperature">5&#176;C</div>
-                    <div class="city-weather-icon">
-                        <i class="wi wi-day-sunny"></i>
-                    </div>
-                    <button class="button-remove-favorite">&#215;</button>
-                </div>
-                <ul class="weather-details">
-                    <li>
-                        <span class="title">Ветер</span>
-                        <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
-                    </li>
-                    <li>
-                        <span class="title">Облачность</span>
-                        <span class="value">Broken clouds</span>
-                    </li>
-                    <li>
-                        <span class="title">Давление</span>
-                        <span class="value">1013 hpa</span>
-                    </li>
-                    <li>
-                        <span class="title">Влажность</span>
-                        <span class="value">52 %</span>
-                    </li>
-                    <li>
-                        <span class="title">Координаты</span>
-                        <span class="value">[59.88, 30.42]</span>
-                    </li>
-                </ul>
-            </section>
-            <section class="city">
-                <div class="city-weather-header">
-                    <h3>San-Francisco</h3>
-                    <div class="city-temperature">5&#176;C</div>
-                    <div class="city-weather-icon">
-                        <i class="wi wi-owm-night-200"></i>
-                    </div>
-                    <button class="button-remove-favorite">&#215;</button>
-                </div>
-                <ul class="weather-details">
-                    <li>
-                        <span class="title">Ветер</span>
-                        <span class="value">Moderate breeze, 6.0 m/s, North-northwest</span>
-                    </li>
-                    <li>
-                        <span class="title">Облачность</span>
-                        <span class="value">Broken clouds</span>
-                    </li>
-                    <li>
-                        <span class="title">Давление</span>
-                        <span class="value">1013 hpa</span>
-                    </li>
-                    <li>
-                        <span class="title">Влажность</span>
-                        <span class="value">52 %</span>
-                    </li>
-                    <li>
-                        <span class="title">Координаты</span>
-                        <span class="value">[59.88, 30.42]</span>
-                    </li>
-                </ul>
-            </section>
+
         </div>
     </div>
+
+    <template>
+        <section class="city">
+            <div class="city-weather-header">
+                <h3>Moscow</h3>
+                <div class="city-temperature">5&#176;C</div>
+                <div class="city-weather-icon">
+                    <i class="wi wi-day-sunny"></i>
+                </div>
+                <button class="button-remove-favorite">&#215;</button>
+            </div>
+            <ul class="weather-details">
+                <li>
+                    <span class="title">Ветер</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li>
+                    <span class="title">Облачность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li>
+                    <span class="title">Давление</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li>
+                    <span class="title">Влажность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li>
+                    <span class="title">Координаты</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+            </ul>
+        </section>
+    </template>
+
+    <script src="script.js" type="text/javascript"></script>
 </main>
 </body>
 </html>
