@@ -16,13 +16,17 @@
     </button>
 </header>
 <main>
+    <!--
+    <div class="local-weather-loading" id="local-weather-loading">
+        <span>Подождите, идёт загрузка данных...</span>
+    </div>-->
     <div class="local-weather" id="local-weather">
         <div class="local-weather-info">
-            <h2>Saint Petersburg</h2>
+            <h2>Загрузка...</h2>
             <div class="weather-icon">
                 <i class="wi"></i>
             </div>
-            <span class="temperature">8&#176;C</span>
+            <span class="temperature"></span>
         </div>
         <div class="local-weather-details">
             <ul class="weather-details">
@@ -69,13 +73,18 @@
     <template id="template-weather">
         <section class="city">
             <div class="city-weather-header">
-                <h3>Moscow</h3>
-                <div class="city-temperature">5&#176;C</div>
+                <h3></h3>
+                <div class="city-temperature"></div>
                 <div class="city-weather-icon">
                     <i class="wi wi-day-sunny"></i>
                 </div>
                 <button class="button-remove-favorite">&#215;</button>
             </div>
+            <!--
+            <div class="city-weather-loading">
+                <span>Подождите, идёт загрузка данных...</span>
+            </div>
+            -->
             <ul class="weather-details">
                 <li class="wind">
                     <span class="title">Ветер</span>

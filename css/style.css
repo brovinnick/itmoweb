@@ -223,6 +223,14 @@ button:focus {
     display: none;
 }
 
+.local-weather-loading {
+    width: 100%;
+    heigth: 250px;
+    text-align: center;
+    font-size: 5em;
+    font-weight: bold;
+}
+
 @media(max-width: 749px) {
     html {
         font-size: 10px;

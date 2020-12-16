@@ -63,24 +63,47 @@ function geoUpdate() {
 function addFavorite(event) {
     event.preventDefault();
     let city = event.target.querySelector("input").value;
-    addCity(city);
+    if (!city || city.trim().length === 0) {
+        alert("City name is empty");
+        return;
+    }
+    if (cityAlreadyExists(city.toLowerCase())) {
+        alert("City already exists");
+        return;
+    }
+    addCity(city, true);
 }
 
-function addCity(city) {
+function cityAlreadyExists(city) {
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (localStorage.getItem(key) === city) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function addCity(city, cityCheck) {
 
     let favorites = document.querySelector(".favorites-weather-content");
     let template = document.querySelector("#template-weather");
     let cont = document.importNode(template.content, true);
-    favorites.appendChild(cont);
-    let newCity = favorites.lastElementChild;
 
     let response = api.getWeatherByCity(city);
     response.then(json => {
         if (json["cod"] !== 200) {
-            newCity.remove();
             alert("Город не найден");
             return;
         }
+        if (cityCheck && cityAlreadyExists(json["name"].toLowerCase())) {
+            alert("City already exists");
+            return;
+        }
+
+        favorites.appendChild(cont);
+        let newCity = favorites.lastElementChild;
+        newCity.querySelector("h3").textContent = city;
         localStorage.setItem(json["id"], json["name"].toLowerCase());
         newCity.id = json["id"];
         newCity.querySelector(".button-remove-favorite").id = newCity.id;
@@ -104,6 +127,7 @@ function loadLocalWeather(json) {
     let info = document.getElementById("local-weather");
 
     info.querySelector("h2").textContent = json["name"];
+    info.querySelector("span").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
 
     fillCityData(info, json);
 }
@@ -114,7 +138,6 @@ function fillCityData(element, json) {
     } else {
         element.querySelector("i").classList.add("wi-owm-night-" + json["weather"][0]["id"]);
     }
-    element.querySelector("span").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
     element.querySelector(".wind").querySelector(".value")
         .textContent = getWindName(json["wind"]["speed"]) +
         ", " + json["wind"]["speed"] + " м/с, " +
