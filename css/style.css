@@ -34,6 +34,7 @@ button:focus {
 
 .local-weather {
     display: flex;
+    height: 150px;
 }
 
 .title {
@@ -47,8 +48,19 @@ button:focus {
 }
 
 .temperature {
-    font-size: 4em;
+    width: 50%;
+    margin: auto;
+    font-size: 5em;
     font-weight: bold;
+    display: inline-block;
+    float: right;
+}
+
+.weather-icon {
+    width: 50%;
+    font-size: 5em;
+    margin: auto;
+    vertical-align: center;
     display: inline-block;
 }
 
@@ -68,12 +80,17 @@ button:focus {
     width: 50%;
 }
 
+.local-weather-header h1 {
+    margin: 0;
+}
+
 .weather-icon {
     display: inline-block;
 }
 
 ul {
     min-width: 300px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     list-style: none;
