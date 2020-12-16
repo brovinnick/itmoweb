@@ -42,8 +42,7 @@ api = new OpenWeatherMapApi("1c3d478c9b89c2b1cc5cb1500028fd08");
 
 document.body.onload = function () {
     document.querySelector("#button-geo-update").addEventListener("click", geoUpdate);
-    document.querySelector("#add-city").addEventListener("submit", evt => addFavorite(evt));
-    geoUpdate();
+    document.querySelector("#add-city").addEventListener("submit", evt => addFavorite(evt));    geoUpdate();
     loadFavorites();
 }
 
@@ -133,8 +132,9 @@ function loadLocalWeather(json) {
     info.querySelector("span").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
 
     fillCityData(info, json);
+
+    document.querySelector("#local-weather").style.display = "block";
     document.querySelector("#local-weather-loading").style.display = "none";
-    document.querySelector("#local-weather").style.display = "flex";
 }
 
 function fillCityData(element, json) {

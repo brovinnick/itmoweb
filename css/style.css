@@ -78,6 +78,7 @@ button:focus {
 .local-weather-info {
     min-width: 300px;
     width: 55%;
+    float: left;
 }
 
 .local-weather-info h2 {
@@ -90,6 +91,7 @@ button:focus {
 }
 
 .local-weather-details {
+    float: right;
     width: 45%;
 }
 
@@ -243,7 +245,7 @@ button:focus {
     .local-weather {
         display: block;
         width: 100%;
-        height: auto;
+        height: 250px;
         margin-top: 20px;
     }
 
