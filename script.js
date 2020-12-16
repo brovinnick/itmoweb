@@ -1,12 +1,11 @@
 class OpenWeatherMapApi {
     constructor(token) {
-        this.apiToken = token;
-        this.baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&"
+        this.baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&appid=" + token + "&";
     }
 
     timeout(ms, promise) {
-        return new Promise(function(resolve, reject) {
-            setTimeout(function() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
                 reject(new Error("timeout"))
             }, ms)
             promise.then(resolve, reject)
@@ -16,10 +15,10 @@ class OpenWeatherMapApi {
     getWeatherByCoordinates(lat, lon) {
         this.timeout(
             3000,
-            fetch(this.baseUrl + "lat=" + lat + "&lon=" + lon + "&appid=" + this.apiToken)
-        ).then(function(response) {
+            fetch(this.baseUrl + "lat=" + lat + "&lon=" + lon)
+        ).then(function (response) {
             return response.json();
-        }).catch(function() {
+        }).catch(function () {
             alert("Network failure");
         }).then(function (json) {
             loadLocalWeather(json)
@@ -27,13 +26,15 @@ class OpenWeatherMapApi {
     }
 
     getWeatherByCity(city) {
-        fetch(+"q=" + city + this.apiToken)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-            });
+        return this.timeout(
+            3000,
+            fetch(this.baseUrl + "q=" + city)
+        ).catch(function (error) {
+            alert("Network failure");
+            return Promise.reject(error);
+        }).then(function (response) {
+            return response.json();
+        })
     }
 }
 
@@ -41,8 +42,9 @@ api = new OpenWeatherMapApi("1c3d478c9b89c2b1cc5cb1500028fd08");
 
 document.body.onload = function () {
     document.querySelector("#button-geo-update").addEventListener("click", geoUpdate);
-    document.querySelector("#add-city").addEventListener("submit", evt => addCity(evt));
+    document.querySelector("#add-city").addEventListener("submit", evt => addFavorite(evt));
     geoUpdate();
+    loadFavorites();
 }
 
 function geoUpdate() {
@@ -58,8 +60,44 @@ function geoUpdate() {
     })
 }
 
-function addCity() {
+function addFavorite(event) {
+    event.preventDefault();
+    let city = event.target.querySelector("input").value;
+    addCity(city);
+}
 
+function addCity(city) {
+
+    let favorites = document.querySelector(".favorites-weather-content");
+    let template = document.querySelector("#template-weather");
+    let cont = document.importNode(template.content, true);
+    favorites.appendChild(cont);
+    let newCity = favorites.lastElementChild;
+
+    let response = api.getWeatherByCity(city);
+    response.then(json => {
+        if (json["cod"] !== 200) {
+            newCity.remove();
+            alert("Город не найден");
+            return;
+        }
+        localStorage.setItem(json["id"], json["name"].toLowerCase());
+        newCity.id = json["id"];
+        newCity.querySelector(".button-remove-favorite").id = newCity.id;
+        newCity.querySelector(".city-temperature").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
+        newCity.querySelector("h3").textContent = json["name"];
+
+        fillCityData(newCity, json);
+
+        newCity.querySelector(".button-remove-favorite").addEventListener("click", removeCity);
+    });
+
+    document.querySelector("#add-city").querySelector("input").value = "";
+}
+
+function removeCity() {
+    localStorage.removeItem(this.id);
+    document.getElementById(this.id).remove();
 }
 
 function loadLocalWeather(json) {
@@ -67,24 +105,35 @@ function loadLocalWeather(json) {
 
     info.querySelector("h2").textContent = json["name"];
 
+    fillCityData(info, json);
+}
+
+function fillCityData(element, json) {
     if (isDaytime(json["timezone"])) {
-        info.querySelector("i").classList.add("wi-owm-day-" + json["weather"][0]["id"]);
+        element.querySelector("i").classList.add("wi-owm-day-" + json["weather"][0]["id"]);
     } else {
-        info.querySelector("i").classList.add("wi-owm-night-" + json["weather"][0]["id"]);
+        element.querySelector("i").classList.add("wi-owm-night-" + json["weather"][0]["id"]);
     }
-    info.querySelector("span").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
-    info.querySelector(".wind").querySelector(".value")
+    element.querySelector("span").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
+    element.querySelector(".wind").querySelector(".value")
         .textContent = getWindName(json["wind"]["speed"]) +
         ", " + json["wind"]["speed"] + " м/с, " +
         getWindDirection(json["wind"]["deg"]);
-    info.querySelector(".clouds").querySelector(".value")
+    element.querySelector(".clouds").querySelector(".value")
         .textContent = json["weather"][0]["description"];
-    info.querySelector(".pressure").querySelector(".value")
+    element.querySelector(".pressure").querySelector(".value")
         .textContent = json["main"]["pressure"] + " hpa";
-    info.querySelector(".humidity").querySelector(".value")
+    element.querySelector(".humidity").querySelector(".value")
         .textContent = json["main"]["humidity"] + "%";
-    info.querySelector(".coords").querySelector(".value")
+    element.querySelector(".coords").querySelector(".value")
         .textContent = json["coord"]["lon"] + ", " + json["coord"]["lat"];
+}
+
+function loadFavorites() {
+    for (let i = 0; i < localStorage.length; i++) {
+        let id = localStorage.key(i);
+        addCity(localStorage.getItem(id));
+    }
 }
 
 function isDaytime(timeZoneShift) {
@@ -102,7 +151,7 @@ function getWindName(speed) {
 
     let speeds = [0, 0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 33];
     let index = 0;
-    speeds.forEach(function(el, idx) {
+    speeds.forEach(function (el, idx) {
         if (el < speed) {
             index = idx;
         }

@@ -213,7 +213,7 @@ button:focus {
 
 .city-temperature {
     width: 15%;
-    margin: auto 0 auto 10px;
+    margin: auto 10px auto 10px;
     font-size: 2em;
     font-weight: bold;
     display: inline-block;
