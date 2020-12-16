@@ -33,7 +33,7 @@ button:focus {
 }
 
 .local-weather {
-    display: flex;
+    display: none;
     height: 150px;
 }
 

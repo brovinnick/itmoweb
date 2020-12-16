@@ -48,6 +48,7 @@ document.body.onload = function () {
 }
 
 function geoUpdate() {
+    document.querySelector("#local-weather-loading").style.display = "flex";
     // Default city: Saint-Petersburg
     let lat = 30.316667;
     let lon = 59.95;
@@ -58,6 +59,8 @@ function geoUpdate() {
     }, () => {
         api.getWeatherByCoordinates(lat, lon);
     })
+    document.querySelector("#local-weather-loading").style.display = "none";
+    document.querySelector("#local-weather").style.display = "flex";
 }
 
 function addFavorite(event) {
