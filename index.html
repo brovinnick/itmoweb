@@ -10,39 +10,39 @@
 <body>
 <header>
     <h1>Погода здесь</h1>
-    <button class="button-geo-update">
+    <button class="button-geo-update" id="button-geo-update">
         <span class="button-geo-update-full">Обновить геолокацию</span>
         <span class="button-geo-update-small">&#x21bb;</span>
     </button>
 </header>
 <main>
-    <div class="local-weather">
+    <div class="local-weather" id="local-weather">
         <div class="local-weather-info">
             <h2>Saint Petersburg</h2>
             <div class="weather-icon">
-                <i class="wi wi-day-sunny"></i>
+                <i class="wi"></i>
             </div>
             <span class="temperature">8&#176;C</span>
         </div>
         <div class="local-weather-details">
             <ul class="weather-details">
-                <li>
+                <li class="wind">
                     <span class="title">Ветер</span>
                     <span class="value">Загрузка...</span>
                 </li>
-                <li>
+                <li class="clouds">
                     <span class="title">Облачность</span>
                     <span class="value">Загрузка...</span>
                 </li>
-                <li>
+                <li class="pressure">
                     <span class="title">Давление</span>
                     <span class="value">Загрузка...</span>
                 </li>
-                <li>
+                <li class="humidity">
                     <span class="title">Влажность</span>
                     <span class="value">Загрузка...</span>
                 </li>
-                <li>
+                <li class="coords">
                     <span class="title">Координаты</span>
                     <span class="value">Загрузка...</span>
                 </li>
@@ -53,8 +53,12 @@
         <div class="favorites-weather-header">
             <h2>Избранное</h2>
             <div class="add-city">
-                <input type="text" placeholder="Добавить новый город">
-                <button class="button-add-favorite">&#10010;</button>
+                <form id="add-city">
+                    <label>
+                        <input type="text" placeholder="Добавить новый город">
+                    </label>
+                    <button class="button-add-favorite">&#10010;</button>
+                </form>
             </div>
         </div>
         <div class="favorites-weather-content">
