@@ -121,6 +121,8 @@ function addCity(city, cityCheck) {
         newCity.querySelector("#weather-details").style.display = "block";
 
         newCity.querySelector(".button-remove-favorite").addEventListener("click", removeCity);
+    }).catch(() => {
+        newCity.remove();
     });
 
     document.querySelector("#add-city").querySelector("input").value = "";
