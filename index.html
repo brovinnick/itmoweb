@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Погода</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weather-icons.min.css">
+</head>
+<body>
+<header>
+    <h1>Погода здесь</h1>
+    <button class="button-geo-update" id="button-geo-update">
+        <span class="button-geo-update-full">Обновить геолокацию</span>
+        <span class="button-geo-update-small">&#x21bb;</span>
+    </button>
+</header>
+<main>
+
+    <div class="local-weather-loading" id="local-weather-loading">
+        <span>Подождите, идёт загрузка данных...</span>
+    </div>
+    <section class="local-weather" id="local-weather">
+        <section class="local-weather-info">
+            <h2>Загрузка...</h2>
+            <div class="weather-icon">
+                <i class="wi"></i>
+            </div>
+            <span class="temperature"></span>
+        </section>
+        <section class="local-weather-details">
+            <ul class="weather-details">
+                <li class="wind">
+                    <span class="title">Ветер</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="clouds">
+                    <span class="title">Облачность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="pressure">
+                    <span class="title">Давление</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="humidity">
+                    <span class="title">Влажность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="coords">
+                    <span class="title">Координаты</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+            </ul>
+        </section>
+    </section>
+    <section class="favorites-weather">
+        <section class="favorites-weather-header">
+            <h2>Избранное</h2>
+            <div class="add-city">
+                <form id="add-city">
+                    <label>
+                        <input type="text" placeholder="Добавить новый город">
+                    </label>
+                    <button class="button-add-favorite">&#10010;</button>
+                </form>
+            </div>
+        </section>
+        <section class="favorites-weather-content">
+
+        </section>
+    </section>
+
+    <template id="template-weather">
+        <section class="city">
+            <div class="city-weather-header">
+                <h3></h3>
+                <div class="city-temperature"></div>
+                <div class="city-weather-icon">
+                    <i class="wi wi-day-sunny"></i>
+                </div>
+                <button class="button-remove-favorite">&#215;</button>
+            </div>
+            <div class="city-weather-loading" id="city-weather-loading">
+                <span>Подождите, идёт загрузка данных...</span>
+            </div>
+            <ul class="weather-details" id="weather-details">
+                <li class="wind">
+                    <span class="title">Ветер</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="clouds">
+                    <span class="title">Облачность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="pressure">
+                    <span class="title">Давление</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="humidity">
+                    <span class="title">Влажность</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+                <li class="coords">
+                    <span class="title">Координаты</span>
+                    <span class="value">Загрузка...</span>
+                </li>
+            </ul>
+        </section>
+    </template>
+
+    <script src="script.js" type="text/javascript"></script>
+</main>
+</body>
+</html>
