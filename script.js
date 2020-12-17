@@ -1,6 +1,20 @@
-class OpenWeatherMapApi {
-    constructor(token) {
-        this.baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&appid=" + token + "&";
+class WeatherApi {
+    constructor() {
+        this.baseUrl = "http://localhost:8081/";
+    }
+
+    request(endpoint, queryParams) {
+        const base = 'http://localhost:8081/weather/';
+        const url = base + endpoint + '?' + queryParams.join('&');
+        return fetch(url).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert('Cannot find this place');
+            }
+        }).catch(() => {
+            alert('Connection was lost');
+        });
     }
 
     timeout(ms, promise) {
@@ -12,23 +26,10 @@ class OpenWeatherMapApi {
         })
     }
 
-    getWeatherByCoordinates(lat, lon) {
-        this.timeout(
-            3000,
-            fetch(this.baseUrl + "lat=" + lat + "&lon=" + lon)
-        ).then(function (response) {
-            return response.json();
-        }).catch(function () {
-            alert("Network failure");
-        }).then(function (json) {
-            loadLocalWeather(json)
-        })
-    }
-
-    getWeatherByCity(city) {
+    getFavourites() {
         return this.timeout(
             3000,
-            fetch(this.baseUrl + "q=" + city)
+            fetch(this.baseUrl + "favorites")
         ).catch(function (error) {
             alert("Network failure");
             return Promise.reject(error);
@@ -38,11 +39,12 @@ class OpenWeatherMapApi {
     }
 }
 
-api = new OpenWeatherMapApi("1c3d478c9b89c2b1cc5cb1500028fd08");
+api = new WeatherApi();
 
 document.body.onload = function () {
     document.querySelector("#button-geo-update").addEventListener("click", geoUpdate);
-    document.querySelector("#add-city").addEventListener("submit", evt => addFavorite(evt));    geoUpdate();
+    document.querySelector("#add-city").addEventListener("submit", evt => addFavorite(evt));
+    geoUpdate();
     loadFavorites();
 }
 
@@ -53,13 +55,15 @@ function geoUpdate() {
     let lat = 30.316667;
     let lon = 59.95;
     let geolocation = navigator.geolocation;
-
     geolocation.getCurrentPosition(position => {
-        api.getWeatherByCoordinates(position.coords.latitude, position.coords.longitude);
+        api.request('coordinates', [`lat=${position.coords.latitude}`, `lon=${position.coords.longitude}`]).then((jsonResult) => {
+            loadLocalWeather(jsonResult);
+        });
     }, () => {
-        api.getWeatherByCoordinates(lat, lon);
-    })
-
+        api.request('coordinates', [`lat=${lat}`, `lon=${lon}`]).then((jsonResult) => {
+            loadLocalWeather(jsonResult);
+        })
+    });
 }
 
 function addFavorite(event) {
@@ -69,21 +73,7 @@ function addFavorite(event) {
         alert("City name is empty");
         return;
     }
-    if (cityAlreadyExists(city.toLowerCase())) {
-        alert("City already exists");
-        return;
-    }
     addCity(city, true);
-}
-
-function cityAlreadyExists(city) {
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        if (localStorage.getItem(key) === city) {
-            return true;
-        }
-    }
-    return false;
 }
 
 function addCity(city, cityCheck) {
@@ -97,40 +87,74 @@ function addCity(city, cityCheck) {
     newCity.querySelector("#city-weather-loading").style.display = "block";
     newCity.querySelector("#weather-details").style.display = "none";
 
-    let response = api.getWeatherByCity(city);
-    response.then(json => {
-        if (json["cod"] !== 200) {
+    api.request('city', ['q=' + city]).then((jsonResult) => {
+
+        if (jsonResult === undefined) {
             newCity.remove();
-            alert("Город не найден");
             return;
         }
-        if (cityCheck && cityAlreadyExists(json["name"].toLowerCase())) {
-            newCity.remove();
-            alert("City already exists");
-            return;
+        if (cityCheck) {
+            fetch('http://localhost:8081/favorites', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: jsonResult.name,
+                    id: jsonResult.id
+                })
+            }).then((response) => {
+                if (response.status === 200) {
+                    initializeAddCity(newCity, jsonResult)
+                } else {
+                    newCity.remove();
+                    alert('This city is already in the favorites');
+                    return;
+                }
+            }).catch((err) => {
+                newCity.remove();
+                alert('Connection was lost');
+                return;
+            });
+        } else {
+            initializeAddCity(newCity, jsonResult);
         }
-
-        localStorage.setItem(json["id"], json["name"].toLowerCase());
-        newCity.id = json["id"];
-        newCity.querySelector(".button-remove-favorite").id = newCity.id;
-        newCity.querySelector(".city-temperature").textContent = Math.floor(json["main"]["temp"]).toString() + "\u00B0" + "C";
-        newCity.querySelector("h3").textContent = json["name"];
-
-        fillCityData(newCity, json);
-        newCity.querySelector("#city-weather-loading").style.display = "none";
-        newCity.querySelector("#weather-details").style.display = "block";
-
-        newCity.querySelector(".button-remove-favorite").addEventListener("click", removeCity);
-    }).catch(() => {
-        newCity.remove();
     });
-
     document.querySelector("#add-city").querySelector("input").value = "";
 }
 
+function initializeAddCity(newCity, jsonResult) {
+    newCity.id = jsonResult["id"];
+    newCity.querySelector(".button-remove-favorite").id = newCity.id;
+    newCity.querySelector(".city-temperature").textContent = Math.floor(jsonResult["main"]["temp"]).toString() + "\u00B0" + "C";
+    newCity.querySelector("h3").textContent = jsonResult["name"];
+
+    fillCityData(newCity, jsonResult);
+    newCity.querySelector("#city-weather-loading").style.display = "none";
+    newCity.querySelector("#weather-details").style.display = "block";
+
+    newCity.querySelector(".button-remove-favorite").addEventListener("click", removeCity);
+}
+
 function removeCity() {
-    localStorage.removeItem(this.id);
-    document.getElementById(this.id).remove();
+    document.getElementById(this.id).querySelector('.button-remove-favorite').disabled = true;
+    fetch('http://localhost:8081/favorites', {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: this.id
+        })
+    }).then((response) => {
+        if (response.status === 200) {
+            document.getElementById(this.id).remove();
+        } else {
+            document.getElementById(this.id).querySelector('.button-remove-favorite').disabled = false;
+            alert('City didn\'t delete');
+        }
+    });
+
 }
 
 function loadLocalWeather(json) {
@@ -166,10 +190,18 @@ function fillCityData(element, json) {
 }
 
 function loadFavorites() {
-    for (let i = 0; i < localStorage.length; i++) {
-        let id = localStorage.key(i);
-        addCity(localStorage.getItem(id));
-    }
+    fetch('http://localhost:8081/favorites', {method: 'GET',})
+        .then((res) => {
+        if (res.ok) {
+            return res.json()
+        }
+    }).then((res) => {
+        for (let i = 0; i < res.cities.length; i++) {
+            const key = res.cities[i];
+            console.log(key);
+            addCity(key);
+        }
+    });
 }
 
 function isDaytime(timeZoneShift) {
