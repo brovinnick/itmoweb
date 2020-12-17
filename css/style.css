@@ -234,13 +234,22 @@ button:focus {
     font-weight: bold;
 }
 
+.city-weather-loading {
+    width: 100%;
+    heigth: 150px;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+}
+
 @media(max-width: 749px) {
     html {
-        font-size: 10px;
+        font-size: 16px;
     }
 
     body {
-        min-width: 300px;
+        min-width: 350px;
+        width: 97.5%;
     }
 
     .local-weather {
@@ -263,7 +272,7 @@ button:focus {
     }
 
     .favorites-weather-header {
-        display: block;
+        display: inline-block;
     }
 
     .favorites-weather-content {
@@ -272,21 +281,26 @@ button:focus {
 
     .city {
         width: 100%;
+        margin-bottom: 20px;
     }
 
     .add-city {
-        width: 100%;
+        width: 97.5%;
+        margin: 10px 0 10px 0;
         display: inline-block;
+        float: left;
         height: 50%;
     }
 
     .favorites-weather-header {
-        display: block;
-        height: 80px;
+        display: inline-block;
+        height: auto;
+        margin-top: 20px;
+        width: 100%;
     }
 
     .favorites-weather-header h2 {
-        width: 100%;
+        width: 97.5%;
         height: 50%;
     }
 
@@ -294,7 +308,12 @@ button:focus {
         display: block;
     }
 
-    .favorites-weather-header {
+    .city-weather-header {
+        width: 97.5%;
+    }
+
+    .favorites-weather-header input {
+        width: 80%;
     }
 
     .button-geo-update-full {
@@ -317,8 +336,8 @@ button:focus {
     }
 
     .button-geo-update {
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         border-radius: 10px;
         margin: auto 0 auto 25px;
         font-weight: bold;

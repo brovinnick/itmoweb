@@ -20,15 +20,15 @@
     <div class="local-weather-loading" id="local-weather-loading">
         <span>Подождите, идёт загрузка данных...</span>
     </div>
-    <div class="local-weather" id="local-weather">
-        <div class="local-weather-info">
+    <section class="local-weather" id="local-weather">
+        <section class="local-weather-info">
             <h2>Загрузка...</h2>
             <div class="weather-icon">
                 <i class="wi"></i>
             </div>
             <span class="temperature"></span>
-        </div>
-        <div class="local-weather-details">
+        </section>
+        <section class="local-weather-details">
             <ul class="weather-details">
                 <li class="wind">
                     <span class="title">Ветер</span>
@@ -51,10 +51,10 @@
                     <span class="value">Загрузка...</span>
                 </li>
             </ul>
-        </div>
-    </div>
-    <div class="favorites-weather">
-        <div class="favorites-weather-header">
+        </section>
+    </section>
+    <section class="favorites-weather">
+        <section class="favorites-weather-header">
             <h2>Избранное</h2>
             <div class="add-city">
                 <form id="add-city">
@@ -64,11 +64,11 @@
                     <button class="button-add-favorite">&#10010;</button>
                 </form>
             </div>
-        </div>
-        <div class="favorites-weather-content">
+        </section>
+        <section class="favorites-weather-content">
 
-        </div>
-    </div>
+        </section>
+    </section>
 
     <template id="template-weather">
         <section class="city">
@@ -80,12 +80,10 @@
                 </div>
                 <button class="button-remove-favorite">&#215;</button>
             </div>
-            <!--
-            <div class="city-weather-loading">
+            <div class="city-weather-loading" id="city-weather-loading">
                 <span>Подождите, идёт загрузка данных...</span>
             </div>
-            -->
-            <ul class="weather-details">
+            <ul class="weather-details" id="weather-details">
                 <li class="wind">
                     <span class="title">Ветер</span>
                     <span class="value">Загрузка...</span>

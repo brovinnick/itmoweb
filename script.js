@@ -91,21 +91,25 @@ function addCity(city, cityCheck) {
     let favorites = document.querySelector(".favorites-weather-content");
     let template = document.querySelector("#template-weather");
     let cont = document.importNode(template.content, true);
+    favorites.appendChild(cont);
+    let newCity = favorites.lastElementChild;
+    newCity.querySelector("h3").textContent = city;
+    newCity.querySelector("#city-weather-loading").style.display = "block";
+    newCity.querySelector("#weather-details").style.display = "none";
 
     let response = api.getWeatherByCity(city);
     response.then(json => {
         if (json["cod"] !== 200) {
+            newCity.remove();
             alert("Город не найден");
             return;
         }
         if (cityCheck && cityAlreadyExists(json["name"].toLowerCase())) {
+            newCity.remove();
             alert("City already exists");
             return;
         }
 
-        favorites.appendChild(cont);
-        let newCity = favorites.lastElementChild;
-        newCity.querySelector("h3").textContent = city;
         localStorage.setItem(json["id"], json["name"].toLowerCase());
         newCity.id = json["id"];
         newCity.querySelector(".button-remove-favorite").id = newCity.id;
@@ -113,6 +117,8 @@ function addCity(city, cityCheck) {
         newCity.querySelector("h3").textContent = json["name"];
 
         fillCityData(newCity, json);
+        newCity.querySelector("#city-weather-loading").style.display = "none";
+        newCity.querySelector("#weather-details").style.display = "block";
 
         newCity.querySelector(".button-remove-favorite").addEventListener("click", removeCity);
     });
