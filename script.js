@@ -39,7 +39,7 @@ class WeatherApi {
     }
 }
 
-api = new WeatherApi();
+let api = new WeatherApi();
 
 document.body.onload = function () {
     document.querySelector("#button-geo-update").addEventListener("click", geoUpdate);
@@ -55,6 +55,7 @@ function geoUpdate() {
     let lat = 30.316667;
     let lon = 59.95;
     let geolocation = navigator.geolocation;
+
     geolocation.getCurrentPosition(position => {
         api.request('coordinates', [`lat=${position.coords.latitude}`, `lon=${position.coords.longitude}`]).then((jsonResult) => {
             loadLocalWeather(jsonResult);
@@ -235,4 +236,20 @@ function getWindDirection(direction) {
         "Западно-югозападный", "Западный", "Западно-северозападный", "Северозападный", "Северо-северозападный"
     ];
     return directions[(Math.floor((direction / 22.5) + 0.5) % 16)];
+}
+
+module.exports = {
+    getWindDirection,
+    getWindName,
+    isDaytime,
+    loadFavorites,
+    fillCityData,
+    loadLocalWeather,
+    removeCity,
+    initializeAddCity,
+    addCity,
+    addFavorite,
+    geoUpdate,
+    api,
+    WeatherApi
 }

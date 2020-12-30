@@ -21,7 +21,6 @@ let db = new sqlite3.Database('database.sqlite', (err) => {
         db.run('CREATE TABLE cities (id INTEGER PRIMARY KEY UNIQUE, name varchar(64));'
             , (err) => {
                 if (err) {
-                    console.log(err.message);
                 }
             });
     }
@@ -53,6 +52,10 @@ server.get('/weather/city', (req, res) => {
 })
 
 server.get('/weather/coordinates', (req, res) => {
+    if (!(req.query.lat && req.query.lon)) {
+        res.status(400).send("Latitude and/or longitude are not specified");
+        return;
+    }
     let lat = req.query.lat;
     let lon = req.query.lon;
     fetch(baseUrl + 'lat=' + lat + '&lon=' + lon)
@@ -89,7 +92,6 @@ server.post('/favorites', (req, res) => {
     let query = `INSERT INTO cities (id, name) VALUES ('${city_id}', '${city_name}')`;
     db.run(query, function (err) {
         if (err) {
-            console.log(err.message);
             return res.sendStatus(400);
         }
         return res.sendStatus(200);
@@ -118,3 +120,5 @@ server.delete('/favorites', (req, res) => {
 server.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/`)
 })
+
+module.exports = server
