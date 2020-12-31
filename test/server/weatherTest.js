@@ -21,7 +21,7 @@ describe('Weather API', () => {
         it('should fetch correct weather data', async () => {
             this.getStub.yields(
                 null,
-                { statusCode: 200, headers: { 'content-type': 'application/json' } },
+                {statusCode: 200, headers: {'content-type': 'application/json'}},
                 weatherData
             );
 
@@ -44,7 +44,7 @@ describe('Weather API', () => {
         it('should return 404 error with invalidcity specified', async () => {
             this.getStub.yields(
                 null,
-                { statusCode: 404 },
+                {statusCode: 404},
             );
 
             let res = await chai
@@ -59,25 +59,25 @@ describe('Weather API', () => {
         it('should fetch correct weather data by coords', async () => {
             this.getStub.yields(
                 null,
-                { statusCode: 200, headers: { 'content-type': 'application/json' } },
+                {statusCode: 200, headers: {'content-type': 'application/json'}},
                 weatherData
             );
 
             let res = await chai
                 .request(server)
-                .get('/weather/coordinates?lat=60.60&lon=40.40');
+                .get('/weather/coordinates?lat=11.11&lon=11.11');
 
             chai.expect(res.status).to.equal(200);
         });
         it('should return error if latitude is not specified', async () => {
             this.getStub.yields(
                 null,
-                { statusCode: 400}
+                {statusCode: 400}
             );
 
             let res = await chai
                 .request(server)
-                .get('/weather/coordinates?lon=40.40');
+                .get('/weather/coordinates?lon=11.11');
 
             chai.expect(res.status).to.equal(400);
         });
@@ -90,7 +90,7 @@ describe('Weather API', () => {
 
             let res = await chai
                 .request(server)
-                .get('/weather/coordinates?lat=60.60');
+                .get('/weather/coordinates?lat=11.11');
 
             chai.expect(res.status).to.equal(400);
         });
